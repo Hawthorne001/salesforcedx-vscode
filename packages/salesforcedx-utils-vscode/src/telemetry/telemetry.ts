@@ -69,7 +69,6 @@ export class TelemetryServiceProvider {
       TelemetryServiceProvider.instances.set(name, service);
     }
     return service;
-
   }
 }
 
@@ -237,6 +236,34 @@ export class TelemetryService {
           aggregatedMeasurements
         );
       }
+    });
+  }
+  public sendLaunchEvent(logSizeStr: string, errorMsg: string): void {
+    this.validateTelemetry(() => {
+      this.reporter!.sendTelemetryEvent('launchDebuggerSession', {
+        extensionName: this.extensionName,
+        logSize: logSizeStr,
+        errorMessage: errorMsg
+      });
+    });
+  }
+
+  public sendCheckpointEvent(errorMsg: string): void {
+    this.validateTelemetry(() => {
+      this.reporter!.sendTelemetryEvent('updateCheckpoints', {
+        extensionName: this.extensionName,
+        errorMessage: errorMsg
+      });
+    });
+  }
+
+  public sendErrorEvent(errorMsg: string, callstack: string): void {
+    this.validateTelemetry(() => {
+      this.reporter!.sendTelemetryEvent('error', {
+        extensionName: this.extensionName,
+        errorMessage: errorMsg,
+        errorStack: callstack
+      });
     });
   }
 

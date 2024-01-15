@@ -19,6 +19,7 @@ import {
   SEND_METRIC_ERROR_EVENT,
   SEND_METRIC_LAUNCH_EVENT
 } from '@salesforce/salesforcedx-apex-replay-debugger/out/src/constants';
+import { TelemetryService } from '@salesforce/salesforcedx-utils-vscode';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { getDialogStartingPath } from './activation/getDialogStartingPath';
@@ -34,7 +35,8 @@ import { launchFromLogFile } from './commands/launchFromLogFile';
 import { setupAndDebugTests } from './commands/quickLaunch';
 import { workspaceContext } from './context';
 import { nls } from './messages';
-import { telemetryService } from './telemetry';
+
+export const telemetryService = TelemetryService.getInstance();
 
 let extContext: vscode.ExtensionContext;
 
@@ -222,10 +224,7 @@ export const activate = async (extensionContext: vscode.ExtensionContext) => {
 
   // Telemetry
   if (sfdxCoreExtension && sfdxCoreExtension.exports) {
-    telemetryService.initializeService(
-      sfdxCoreExtension.exports.telemetryService.getReporter(),
-      sfdxCoreExtension.exports.telemetryService.isTelemetryEnabled()
-    );
+    telemetryService.initializeService(extensionContext);
   }
 
   telemetryService.sendExtensionActivationEvent(extensionHRStart);
