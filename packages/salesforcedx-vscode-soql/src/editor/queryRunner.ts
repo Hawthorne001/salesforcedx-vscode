@@ -6,7 +6,7 @@
  */
 
 import { QueryResult } from '@jsforce/jsforce-node';
-import { Connection } from '@salesforce/core';
+import { Connection } from '@salesforce/core-bundle';
 import { soqlComments } from '@salesforce/soql-common';
 import { JsonMap } from '@salesforce/ts-types';
 import * as vscode from 'vscode';
@@ -14,10 +14,7 @@ import { nls } from '../messages';
 export class QueryRunner {
   constructor(private connection: Connection) {}
 
-  public async runQuery(
-    queryText: string,
-    options = { showErrors: true }
-  ): Promise<QueryResult<JsonMap>> {
+  public async runQuery(queryText: string, options = { showErrors: true }): Promise<QueryResult<JsonMap>> {
     const pureSOQLText = soqlComments.parseHeaderComments(queryText).soqlText;
 
     try {
@@ -43,8 +40,6 @@ export class QueryRunner {
   */
   private flattenQueryRecords(rawQueryRecords: JsonMap[]) {
     // filter out the attributes key
-    return rawQueryRecords.map(
-      ({ attributes, ...cleanRecords }) => cleanRecords
-    );
+    return rawQueryRecords.map(({ attributes, ...cleanRecords }) => cleanRecords);
   }
 }

@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { ContinueResponse } from '@salesforce/salesforcedx-utils-vscode';
-import { ComponentSet } from '@salesforce/source-deploy-retrieve';
+import { ComponentSet } from '@salesforce/source-deploy-retrieve-bundle';
 import { join } from 'path';
 import * as vscode from 'vscode';
 import { channelService } from '../channels';
@@ -24,15 +24,10 @@ export class LibraryDeployManifestExecutor extends DeployExecutor<string> {
     super(nls.localize('deploy_this_source_text'), 'deploy_with_manifest');
   }
 
-  protected async getComponents(
-    response: ContinueResponse<string>
-  ): Promise<ComponentSet> {
-    const packageDirs =
-      await SalesforcePackageDirectories.getPackageDirectoryPaths();
+  protected async getComponents(response: ContinueResponse<string>): Promise<ComponentSet> {
+    const packageDirs = await SalesforcePackageDirectories.getPackageDirectoryPaths();
     const rootWorkspacePath = workspaceUtils.getRootWorkspacePath();
-    const resolveSourcePaths = packageDirs.map(packageDir =>
-      join(rootWorkspacePath, packageDir)
-    );
+    const resolveSourcePaths = packageDirs.map(packageDir => join(rootWorkspacePath, packageDir));
     const componentSet = await ComponentSet.fromManifest({
       manifestPath: response.data,
       resolveSourcePaths,

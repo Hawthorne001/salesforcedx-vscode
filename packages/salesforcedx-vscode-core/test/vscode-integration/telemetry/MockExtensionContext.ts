@@ -9,9 +9,12 @@ import {
   EnvironmentVariableCollection,
   EnvironmentVariableMutator,
   EnvironmentVariableScope,
+  EventEmitter,
   Extension,
   ExtensionContext,
   ExtensionMode,
+  LanguageModelAccessInformation,
+  LanguageModelChat,
   Memento,
   SecretStorage,
   Uri
@@ -60,8 +63,7 @@ class MockMemento implements Memento {
   }
 }
 
-class MockEnvironmentVariableCollection
-  implements EnvironmentVariableCollection {
+class MockEnvironmentVariableCollection implements EnvironmentVariableCollection {
   public [Symbol.iterator](): Iterator<[variable: string, mutator: EnvironmentVariableMutator], any, undefined> {
     throw new Error('Method not implemented.');
   }
@@ -80,11 +82,7 @@ class MockEnvironmentVariableCollection
     throw new Error('Method not implemented.');
   }
   public forEach(
-    callback: (
-      variable: string,
-      mutator: EnvironmentVariableMutator,
-      collection: EnvironmentVariableCollection
-    ) => any,
+    callback: (variable: string, mutator: EnvironmentVariableMutator, collection: EnvironmentVariableCollection) => any,
     thisArg?: any
   ): void {
     throw new Error('Method not implemented.');
@@ -143,4 +141,12 @@ export class MockExtensionContext implements ExtensionContext {
     return path.join('../../../package.json'); // this should point to the src/package.json
   }
   public storagePath: string = 'myStoragePath';
+  public languageModelAccessInformation: LanguageModelAccessInformation = {
+    onDidChange: new EventEmitter<void>().event,
+    canSendRequest: (chat: LanguageModelChat) => {
+      // Implement your logic here
+      // For example, return true, false, or undefined based on some condition
+      return true; // or false or undefined
+    }
+  };
 }

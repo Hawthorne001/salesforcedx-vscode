@@ -23,7 +23,6 @@ export class DescribeMetadataExecutor extends SfCommandletExecutor<string> {
     super();
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public build(data: {}): Command {
     return new SfCommandBuilder()
       .withArg('org:list:metadata-types')
@@ -45,9 +44,7 @@ export class DescribeMetadataExecutor extends SfCommandletExecutor<string> {
   }
 }
 
-export const describeMetadata = async (
-  outputFolder: string
-): Promise<string> => {
+export const describeMetadata = async (outputFolder: string): Promise<string> => {
   const describeMetadataExecutor = new DescribeMetadataExecutor();
   const execution = describeMetadataExecutor.execute();
   if (!fs.existsSync(outputFolder)) {

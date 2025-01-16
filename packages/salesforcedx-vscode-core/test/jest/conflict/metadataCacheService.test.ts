@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { ComponentSet } from '@salesforce/source-deploy-retrieve';
+import { ComponentSet } from '@salesforce/source-deploy-retrieve-bundle';
 import { MetadataCacheService } from '../../../src/conflict';
 import { WorkspaceContext } from '../../../src/context';
 import { componentSetUtils } from '../../../src/services/sdr/componentSetUtils';
@@ -23,23 +23,16 @@ describe('MetadataCacheService', () => {
     let setApiVersionStub: jest.SpyInstance;
 
     beforeEach(() => {
-      workspaceContextStub = jest
-        .spyOn(WorkspaceContext, 'getInstance')
-        .mockReturnValue({
-          getConnection: async () => {
-            return {};
-          }
-        } as any);
-      getSourceComponentsStub = jest
-        .spyOn(MetadataCacheService.prototype, 'getSourceComponents');
+      workspaceContextStub = jest.spyOn(WorkspaceContext, 'getInstance').mockReturnValue({
+        getConnection: async () => {
+          return {};
+        }
+      } as any);
+      getSourceComponentsStub = jest.spyOn(MetadataCacheService.prototype, 'getSourceComponents');
 
-      setApiVersionStub = jest
-        .spyOn(componentSetUtils, 'setApiVersion')
-        .mockImplementation(jest.fn());
+      setApiVersionStub = jest.spyOn(componentSetUtils, 'setApiVersion').mockImplementation(jest.fn());
 
-      retrieveStub = jest
-        .spyOn(dummyComponentSet, 'retrieve')
-        .mockResolvedValue({} as any);
+      retrieveStub = jest.spyOn(dummyComponentSet, 'retrieve').mockResolvedValue({} as any);
     });
 
     it('should use the suppressEvents option to retrieve files with conflicts', async () => {
@@ -52,9 +45,7 @@ describe('MetadataCacheService', () => {
       expect(getSourceComponentsStub).toHaveBeenCalled();
       expect(setApiVersionStub).toHaveBeenCalledWith(dummyComponentSet);
       const dummyRetrieveOptionsWithSuppressEvents = { suppressEvents: true };
-      expect(retrieveStub).toHaveBeenCalledWith(
-        expect.objectContaining(dummyRetrieveOptionsWithSuppressEvents)
-      );
+      expect(retrieveStub).toHaveBeenCalledWith(expect.objectContaining(dummyRetrieveOptionsWithSuppressEvents));
     });
 
     describe('loadCache', () => {

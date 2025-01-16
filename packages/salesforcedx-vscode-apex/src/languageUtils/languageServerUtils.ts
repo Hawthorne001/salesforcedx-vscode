@@ -7,12 +7,8 @@
 
 import { execSync } from 'child_process';
 import { SIGKILL } from 'constants';
-import {
-  APEX_LSP_ORPHAN,
-  POWERSHELL_NOT_FOUND,
-  UBER_JAR_NAME
-} from '../constants';
-import { telemetryService } from '../telemetry';
+import { APEX_LSP_ORPHAN, POWERSHELL_NOT_FOUND, UBER_JAR_NAME } from '../constants';
+import { getTelemetryService } from '../telemetry/telemetry';
 
 export type ProcessDetail = {
   pid: number;
@@ -21,7 +17,8 @@ export type ProcessDetail = {
   orphaned: boolean;
 };
 
-const findAndCheckOrphanedProcesses = (): ProcessDetail[] => {
+const findAndCheckOrphanedProcesses = async (): Promise<ProcessDetail[]> => {
+  const telemetryService = await getTelemetryService();
   const platform = process.platform.toLowerCase();
   const isWindows = platform === 'win32';
 
@@ -44,12 +41,7 @@ const findAndCheckOrphanedProcesses = (): ProcessDetail[] => {
       const command = commandParts.join(' ');
       return { pid, ppid, command, orphaned: false };
     })
-    .filter(
-      processInfo =>
-        !['ps', 'grep', 'Get-CimInstance'].some(c =>
-          processInfo.command.includes(c)
-        )
-    )
+    .filter(processInfo => !['ps', 'grep', 'Get-CimInstance'].some(c => processInfo.command.includes(c)))
     .filter(processInfo => processInfo.command.includes(UBER_JAR_NAME));
 
   if (processes.length === 0) {
@@ -86,7 +78,8 @@ const terminateProcess = (pid: number) => {
   process.kill(pid, SIGKILL);
 };
 
-const canRunCheck = (isWindows: boolean) => {
+const canRunCheck = async (isWindows: boolean) => {
+  const telemetryService = await getTelemetryService();
   if (isWindows) {
     try {
       // where command will return path if found and empty string if not

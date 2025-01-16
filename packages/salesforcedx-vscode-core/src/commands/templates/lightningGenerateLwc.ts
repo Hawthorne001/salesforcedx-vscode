@@ -5,27 +5,24 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {
-  DirFileNameSelection,
-  LocalComponent
-} from '@salesforce/salesforcedx-utils-vscode';
+import { DirFileNameSelection, LocalComponent } from '@salesforce/salesforcedx-utils-vscode';
 import { LightningComponentOptions, TemplateType } from '@salesforce/templates';
 import { Uri } from 'vscode';
 import { nls } from '../../messages';
 import { salesforceCoreSettings } from '../../settings';
 import {
   CompositeParametersGatherer,
+  CompositePostconditionChecker,
   MetadataTypeGatherer,
   SelectFileName,
   SelectOutputDir,
   SfCommandlet,
   SfWorkspaceChecker
 } from '../util';
+import { LwcAuraDuplicateComponentCheckerForCreate } from '../util/lwcAuraDuplicateComponentCheckers';
 import { OverwriteComponentPrompt } from '../util/overwriteComponentPrompt';
-import {
-  FileInternalPathGatherer,
-  InternalDevWorkspaceChecker
-} from './internalCommandUtils';
+import { SelectLwcComponentType } from '../util/parameterGatherers';
+import { FileInternalPathGatherer, InternalDevWorkspaceChecker } from './internalCommandUtils';
 import { LibraryBaseTemplateCommand } from './libraryBaseTemplateCommand';
 import { LWC_DIRECTORY, LWC_TYPE } from './metadataTypeConstants';
 
@@ -34,37 +31,42 @@ export class LibraryLightningGenerateLwcExecutor extends LibraryBaseTemplateComm
   public telemetryName = 'lightning_generate_lwc';
   public metadataTypeName = LWC_TYPE;
   public templateType = TemplateType.LightningComponent;
+  private templateOptions: LightningComponentOptions | undefined;
+
   public getOutputFileName(data: DirFileNameSelection) {
     return data.fileName;
   }
+
   public constructTemplateOptions(data: DirFileNameSelection) {
     const internal = salesforceCoreSettings.getInternalDev();
-    const templateOptions: LightningComponentOptions = {
-      outputdir: data.outputdir,
-      componentname: data.fileName,
-      template: 'default',
+    const { outputdir, fileName: componentname, extension } = data;
+    this.templateOptions = {
+      outputdir,
+      componentname,
+      template: extension === 'TypeScript' ? 'typeScript' : 'default',
       type: 'lwc',
       internal
     };
-    return templateOptions;
+    return this.templateOptions;
+  }
+
+  public getFileExtension(): string {
+    return this.templateOptions?.template === 'typeScript' ? '.ts' : '.js';
   }
 }
-
-const fileNameGatherer = new SelectFileName();
-const outputDirGatherer = new SelectOutputDir(LWC_DIRECTORY, true);
-const metadataTypeGatherer = new MetadataTypeGatherer(LWC_TYPE);
 
 export const lightningGenerateLwc = (): void => {
   const createTemplateExecutor = new LibraryLightningGenerateLwcExecutor();
   const commandlet = new SfCommandlet(
     new SfWorkspaceChecker(),
     new CompositeParametersGatherer<LocalComponent>(
-      metadataTypeGatherer,
-      fileNameGatherer,
-      outputDirGatherer
+      new MetadataTypeGatherer(LWC_TYPE),
+      new SelectLwcComponentType(),
+      new SelectFileName(),
+      new SelectOutputDir(LWC_DIRECTORY, true)
     ),
     createTemplateExecutor,
-    new OverwriteComponentPrompt()
+    new CompositePostconditionChecker(new LwcAuraDuplicateComponentCheckerForCreate(), new OverwriteComponentPrompt())
   );
   void commandlet.run();
 };
@@ -73,10 +75,7 @@ export const internalLightningGenerateLwc = (sourceUri: Uri): void => {
   const createTemplateExecutor = new LibraryLightningGenerateLwcExecutor();
   const commandlet = new SfCommandlet(
     new InternalDevWorkspaceChecker(),
-    new CompositeParametersGatherer(
-      fileNameGatherer,
-      new FileInternalPathGatherer(sourceUri)
-    ),
+    new CompositeParametersGatherer(new SelectFileName(), new FileInternalPathGatherer(sourceUri)),
     createTemplateExecutor
   );
   void commandlet.run();

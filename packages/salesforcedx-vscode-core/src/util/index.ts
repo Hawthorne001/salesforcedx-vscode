@@ -17,8 +17,12 @@ export {
 export { workspaceUtils } from './rootWorkspace';
 export { MetadataDictionary, MetadataInfo } from './metadataDictionary';
 export {
-  checkForExpiredOrgs,
+  checkForSoonToBeExpiredOrgs,
   getAuthFieldsFor,
   getTargetDevHubOrAlias,
   setUpOrgExpirationWatcher
 } from './orgUtil';
+
+export { ComponentName, ContinueOrCancel, OneOrMany, isContinue } from './types';
+
+export * from './componentUtils';

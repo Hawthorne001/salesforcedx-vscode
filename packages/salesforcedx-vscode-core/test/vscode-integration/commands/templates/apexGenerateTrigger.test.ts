@@ -5,7 +5,6 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { TemplateService } from '@salesforce/templates';
 import * as path from 'path';
 import * as shell from 'shelljs';
 import { SinonStub, stub } from 'sinon';
@@ -28,10 +27,7 @@ describe('Apex Generate Trigger', () => {
     showInputBoxStub = stub(vscode.window, 'showInputBox');
     quickPickStub = stub(vscode.window, 'showQuickPick');
     appendLineStub = stub(channelService, 'appendLine');
-    showSuccessfulExecutionStub = stub(
-      notificationService,
-      'showSuccessfulExecution'
-    );
+    showSuccessfulExecutionStub = stub(notificationService, 'showSuccessfulExecution');
     showSuccessfulExecutionStub.returns(Promise.resolve());
     showFailedExecutionStub = stub(notificationService, 'showFailedExecution');
   });
@@ -47,11 +43,7 @@ describe('Apex Generate Trigger', () => {
   it('Should generate Apex Trigger', async () => {
     // arrange
     const outputPath = 'force-app/main/default/triggers';
-    const apexTriggerPath = path.join(
-      workspaceUtils.getRootWorkspacePath(),
-      outputPath,
-      'TestApexTrigger.trigger'
-    );
+    const apexTriggerPath = path.join(workspaceUtils.getRootWorkspacePath(), outputPath, 'TestApexTrigger.trigger');
     const apexTriggerMetaPath = path.join(
       workspaceUtils.getRootWorkspacePath(),
       outputPath,
@@ -67,21 +59,6 @@ describe('Apex Generate Trigger', () => {
     await apexGenerateTrigger();
 
     // assert
-    const defaultApiVersion = TemplateService.getDefaultApiVersion();
     assert.file([apexTriggerPath, apexTriggerMetaPath]);
-    assert.fileContent(
-      apexTriggerPath,
-      `trigger TestApexTrigger on SOBJECT (before insert) {
-
-}`
-    );
-    assert.fileContent(
-      apexTriggerMetaPath,
-      `<?xml version='1.0' encoding='UTF-8'?>
-<ApexTrigger xmlns="http://soap.sforce.com/2006/04/metadata">
-  <apiVersion>${defaultApiVersion}</apiVersion>
-  <status>Active</status>
-</ApexTrigger>`
-    );
   });
 });

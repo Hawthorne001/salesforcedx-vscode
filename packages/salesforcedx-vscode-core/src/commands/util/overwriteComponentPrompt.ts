@@ -5,32 +5,23 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {
-  CancelResponse,
-  ContinueResponse,
-  LocalComponent,
-  PostconditionChecker
-} from '@salesforce/salesforcedx-utils-vscode';
+import { LocalComponent, PostconditionChecker } from '@salesforce/salesforcedx-utils-vscode';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { nls } from '../../messages';
 import { notificationService } from '../../notifications';
 import { telemetryService } from '../../telemetry';
-import { MetadataDictionary, workspaceUtils } from '../../util';
+import { ContinueOrCancel, isContinue, MetadataDictionary, OneOrMany, workspaceUtils } from '../../util';
+
 import { PathStrategyFactory } from './sourcePathStrategies';
 
-type OneOrMany = LocalComponent | LocalComponent[];
-type ContinueOrCancel = ContinueResponse<OneOrMany> | CancelResponse;
-
 export class OverwriteComponentPrompt implements PostconditionChecker<OneOrMany> {
-    public async check(inputs: ContinueOrCancel): Promise<ContinueOrCancel> {
-    if (inputs.type === 'CONTINUE') {
+  public async check(inputs: ContinueOrCancel): Promise<ContinueOrCancel> {
+    if (isContinue(inputs)) {
       const { data } = inputs;
       // normalize data into a list when processing
       const componentsToCheck = data instanceof Array ? data : [data];
-      const foundComponents = componentsToCheck.filter(component =>
-        this.componentExists(component)
-      );
+      const foundComponents = componentsToCheck.filter(component => this.componentExists(component));
 
       if (foundComponents.length > 0) {
         const toSkip = await this.promptOverwrite(foundComponents);
@@ -40,9 +31,7 @@ export class OverwriteComponentPrompt implements PostconditionChecker<OneOrMany>
         }
 
         if (data instanceof Array) {
-          inputs.data = componentsToCheck.filter(
-            selection => !toSkip.has(selection)
-          );
+          inputs.data = componentsToCheck.filter(selection => !toSkip.has(selection));
         }
       }
 
@@ -54,9 +43,7 @@ export class OverwriteComponentPrompt implements PostconditionChecker<OneOrMany>
   private componentExists(component: LocalComponent) {
     const { fileName, type, outputdir } = component;
     const info = MetadataDictionary.getInfo(type);
-    const pathStrategy = info
-      ? info.pathStrategy
-      : PathStrategyFactory.createDefaultStrategy();
+    const pathStrategy = info ? info.pathStrategy : PathStrategyFactory.createDefaultStrategy();
     return this.getFileExtensions(component).some(extension => {
       const path = join(
         workspaceUtils.getRootWorkspacePath(),
@@ -74,13 +61,8 @@ export class OverwriteComponentPrompt implements PostconditionChecker<OneOrMany>
     } else if (info && info.suffix) {
       metadataSuffix = info.suffix;
     } else {
-      notificationService.showErrorMessage(
-        nls.localize('error_overwrite_prompt')
-      );
-      telemetryService.sendException(
-        'OverwriteComponentPromptException',
-        `Missing suffix for ${component.type}`
-      );
+      notificationService.showErrorMessage(nls.localize('error_overwrite_prompt'));
+      telemetryService.sendException('OverwriteComponentPromptException', `Missing suffix for ${component.type}`);
     }
 
     const extensions = [`.${metadataSuffix}-meta.xml`];
@@ -91,9 +73,7 @@ export class OverwriteComponentPrompt implements PostconditionChecker<OneOrMany>
     return extensions;
   }
 
-  public async promptOverwrite(
-    foundComponents: LocalComponent[]
-  ): Promise<Set<LocalComponent> | undefined> {
+  public async promptOverwrite(foundComponents: LocalComponent[]): Promise<Set<LocalComponent> | undefined> {
     const skipped = new Set<LocalComponent>();
     for (let i = 0; i < foundComponents.length; i++) {
       const options = this.buildDialogOptions(foundComponents, skipped, i);
@@ -120,10 +100,7 @@ export class OverwriteComponentPrompt implements PostconditionChecker<OneOrMany>
     return skipped;
   }
 
-  private buildDialogMessage(
-    foundComponents: LocalComponent[],
-    currentIndex: number
-  ) {
+  private buildDialogMessage(foundComponents: LocalComponent[], currentIndex: number) {
     const existingLength = foundComponents.length;
     const current = foundComponents[currentIndex];
     let body = '';
@@ -142,18 +119,12 @@ export class OverwriteComponentPrompt implements PostconditionChecker<OneOrMany>
       'warning_prompt_overwrite_message',
       current.type,
       current.fileName,
-      otherFilesCount > 0
-        ? nls.localize('warning_prompt_other_existing', otherFilesCount)
-        : '',
+      otherFilesCount > 0 ? nls.localize('warning_prompt_other_existing', otherFilesCount) : '',
       body
     );
   }
 
-  private buildDialogOptions(
-    foundComponents: LocalComponent[],
-    skipped: Set<LocalComponent>,
-    currentIndex: number
-  ) {
+  private buildDialogOptions(foundComponents: LocalComponent[], skipped: Set<LocalComponent>, currentIndex: number) {
     const choices = [nls.localize('warning_prompt_overwrite')];
     const numOfExistingFiles = foundComponents.length;
     if (skipped.size > 0 || skipped.size !== numOfExistingFiles - 1) {

@@ -10,7 +10,7 @@ import { channelService } from './channels';
 import { APEX_LSP_ORPHAN } from './constants';
 import { languageServerUtils as lsu, ProcessDetail } from './languageUtils';
 import { nls } from './messages';
-import { telemetryService } from './telemetry';
+import { getTelemetryService } from './telemetry/telemetry';
 
 export const ADVICE = nls.localize('orphan_process_advice');
 export const YES = nls.localize('yes');
@@ -25,13 +25,13 @@ export const COMMAND = nls.localize('process_command');
 
 // these messages contain replaceable parameters, cannot localize yet
 export const CONFIRM = 'terminate_processes_confirm';
-export const TERMINATE_ORPHANED_PROCESSES =
-  'terminate_orphaned_language_server_instances';
+export const TERMINATE_ORPHANED_PROCESSES = 'terminate_orphaned_language_server_instances';
 export const TERMINATED_PROCESS = 'terminated_orphaned_process';
 export const TERMINATE_FAILED = 'terminate_failed';
 
 const resolveAnyFoundOrphanLanguageServers = async (): Promise<void> => {
-  const orphanedProcesses = lsu.findAndCheckOrphanedProcesses();
+  const telemetryService = await getTelemetryService();
+  const orphanedProcesses = await lsu.findAndCheckOrphanedProcesses();
   if (orphanedProcesses.length > 0) {
     if (await getResolutionForOrphanProcesses(orphanedProcesses)) {
       telemetryService.sendEventData(APEX_LSP_ORPHAN, undefined, {
@@ -49,11 +49,7 @@ const resolveAnyFoundOrphanLanguageServers = async (): Promise<void> => {
           showTerminationFailed(processInfo, err);
           telemetryService.sendException(
             APEX_LSP_ORPHAN,
-            typeof err === 'string'
-              ? err
-              : err?.message
-              ? err.message
-              : 'unknown'
+            typeof err === 'string' ? err : err?.message ? err.message : 'unknown'
           );
         }
       }
@@ -71,9 +67,7 @@ const resolveAnyFoundOrphanLanguageServers = async (): Promise<void> => {
  * @param orphanedProcesses
  * @returns boolean
  */
-const getResolutionForOrphanProcesses = async (
-  orphanedProcesses: ProcessDetail[]
-): Promise<boolean> => {
+const getResolutionForOrphanProcesses = async (orphanedProcesses: ProcessDetail[]): Promise<boolean> => {
   const orphanedCount = orphanedProcesses.length;
 
   if (orphanedCount === 0) {
@@ -89,10 +83,7 @@ const getResolutionForOrphanProcesses = async (
         SHOW_PROCESSES_BTN
       )) ?? DISMISSED_DEFAULT;
 
-    if (
-      requestsTermination(choice) &&
-      (await terminationConfirmation(orphanedCount))
-    ) {
+    if (requestsTermination(choice) && (await terminationConfirmation(orphanedCount))) {
       return true;
     } else if (showProcesses(choice)) {
       showOrphansInChannel(orphanedProcesses);
@@ -116,7 +107,7 @@ const showOrphansInChannel = (orphanedProcesses: ProcessDetail[]) => {
       command:
         processInfo.command.length <= 70
           ? processInfo.command
-          : processInfo.command.match(/.{1,70}/g)?.join('\n') ?? ''
+          : (processInfo.command.match(/.{1,70}/g)?.join('\n') ?? '')
     };
   });
 
@@ -129,14 +120,8 @@ const showOrphansInChannel = (orphanedProcesses: ProcessDetail[]) => {
   channelService.appendLine(tableString);
 };
 
-const terminationConfirmation = async (
-  orphanedCount: number
-): Promise<boolean> => {
-  const choice = await vscode.window.showWarningMessage(
-    nls.localize(CONFIRM, orphanedCount),
-    YES,
-    CANCEL
-  );
+const terminationConfirmation = async (orphanedCount: number): Promise<boolean> => {
+  const choice = await vscode.window.showWarningMessage(nls.localize(CONFIRM, orphanedCount), YES, CANCEL);
   return choice === YES;
 };
 
@@ -149,15 +134,11 @@ const showProcesses = (choice: string): boolean => {
 };
 
 const showProcessTerminated = (processDetail: ProcessDetail): void => {
-  channelService.appendLine(
-    nls.localize(TERMINATED_PROCESS, processDetail.pid)
-  );
+  channelService.appendLine(nls.localize(TERMINATED_PROCESS, processDetail.pid));
 };
 
 const showTerminationFailed = (processInfo: ProcessDetail, err: any): void => {
-  channelService.appendLine(
-    nls.localize(TERMINATE_FAILED, processInfo.pid, err.message)
-  );
+  channelService.appendLine(nls.localize(TERMINATE_FAILED, processInfo.pid, err.message));
 };
 
 export const languageServerOrphanHandler = {

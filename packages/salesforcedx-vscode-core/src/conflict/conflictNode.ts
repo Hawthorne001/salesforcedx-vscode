@@ -52,7 +52,7 @@ export class ConflictNode extends vscode.TreeItem {
   }
 
   // TODO: create issue to track this
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+
   // @ts-ignore
   get tooltip() {
     if (this._conflict) {
@@ -102,12 +102,7 @@ export class ConflictGroupNode extends ConflictNode {
 
   public addChildren(conflicts: ConflictFile[]) {
     if (conflicts.length === 0) {
-      this.children.push(
-        new ConflictNode(
-          this.emptyLabel || '',
-          vscode.TreeItemCollapsibleState.None
-        )
-      );
+      this.children.push(new ConflictNode(this.emptyLabel || '', vscode.TreeItemCollapsibleState.None));
     }
 
     conflicts.forEach(entry => {

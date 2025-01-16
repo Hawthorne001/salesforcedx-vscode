@@ -21,18 +21,13 @@ export class ListMetadataExecutor extends SfCommandletExecutor<string> {
   private targetOrgOrAlias: string;
   private folder?: string;
 
-  public constructor(
-    metadataType: string,
-    targetOrgOrAlias: string,
-    folder?: string
-  ) {
+  public constructor(metadataType: string, targetOrgOrAlias: string, folder?: string) {
     super();
     this.metadataType = metadataType;
     this.targetOrgOrAlias = targetOrgOrAlias;
     this.folder = folder;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public build(data: {}): Command {
     const builder = new SfCommandBuilder()
       .withArg('org:list:metadata')
@@ -66,11 +61,7 @@ export const listMetadata = async (
   outputPath: string,
   folder?: string
 ): Promise<string> => {
-  const listMetadataExecutor = new ListMetadataExecutor(
-    metadataType,
-    targetOrgOrAlias,
-    folder
-  );
+  const listMetadataExecutor = new ListMetadataExecutor(metadataType, targetOrgOrAlias, folder);
   const execution = listMetadataExecutor.execute();
   const cmdOutput = new CommandOutput();
   const result = await cmdOutput.getCmdResult(execution);

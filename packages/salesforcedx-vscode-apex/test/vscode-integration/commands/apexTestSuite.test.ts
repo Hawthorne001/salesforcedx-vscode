@@ -5,15 +5,12 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { TestService } from '@salesforce/apex-node';
+import { TestService } from '@salesforce/apex-node-bundle';
 import { ContinueResponse } from '@salesforce/salesforcedx-utils-vscode';
 import { expect } from 'chai';
 import { createSandbox } from 'sinon';
 import * as vscode from 'vscode';
-import {
-  ApexTestQuickPickItem,
-  TestType
-} from '../../../src/commands/apexTestRun';
+import { ApexTestQuickPickItem, TestType } from '../../../src/commands/apexTestRun';
 import {
   ApexTestSuiteOptions,
   TestSuiteBuilder,

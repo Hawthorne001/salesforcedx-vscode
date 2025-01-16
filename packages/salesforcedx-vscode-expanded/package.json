@@ -14,11 +14,11 @@
     "color": "#ECECEC",
     "theme": "light"
   },
-  "version": "60.16.0",
+  "version": "62.14.1",
   "publisher": "salesforce",
   "license": "BSD-3-Clause",
   "engines": {
-    "vscode": "^1.82.0"
+    "vscode": "^1.90.0"
   },
   "scripts": {
     "vscode:package": "vsce package --no-dependencies",
@@ -39,10 +39,12 @@
     "salesforce.salesforcedx-vscode-lwc",
     "salesforce.salesforcedx-vscode-soql",
     "salesforce.salesforce-vscode-slds",
+    "salesforce.sfdx-code-analyzer-vscode",
     "redhat.vscode-xml",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "chuckjonas.apex-pmd",
+    "pmd.apex-pmd",
     "financialforce.lana"
   ]
 }

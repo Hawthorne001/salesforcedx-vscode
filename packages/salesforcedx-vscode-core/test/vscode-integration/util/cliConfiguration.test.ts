@@ -5,20 +5,14 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { Config, ConfigFile, Global } from '@salesforce/core';
-import {
-  ConfigUtil,
-  GlobalCliEnvironment
-} from '@salesforce/salesforcedx-utils-vscode';
+import { Config, ConfigFile, Global } from '@salesforce/core-bundle';
+import { ConfigUtil, GlobalCliEnvironment } from '@salesforce/salesforcedx-utils-vscode';
 import { expect } from 'chai';
 import * as fs from 'fs';
 import * as shelljs from 'shelljs';
 import { assert, createSandbox, SinonSandbox, SinonStub } from 'sinon';
 import { window } from 'vscode';
-import {
-  ENV_SF_DISABLE_TELEMETRY,
-  TARGET_ORG_KEY
-} from '../../../src/constants';
+import { ENV_SF_DISABLE_TELEMETRY, TARGET_ORG_KEY } from '../../../src/constants';
 import { WorkspaceContext } from '../../../src/context';
 import {
   disableCLITelemetry,
@@ -57,9 +51,7 @@ describe('SFDX CLI Configuration utility', () => {
     });
 
     it('Should return false if sfdx cli path query throwns an exception', () => {
-      whichStub
-        .withArgs('sfdx')
-        .throws(new Error('some exception while querying system path'));
+      whichStub.withArgs('sfdx').throws(new Error('some exception while querying system path'));
 
       const response = isCLIInstalled();
       expect(response).equal(false);
@@ -71,9 +63,7 @@ describe('SFDX CLI Configuration utility', () => {
 
     beforeEach(() => {
       sandboxStub = createSandbox();
-      mShowWarning = sandboxStub
-        .stub(window, 'showWarningMessage')
-        .returns(Promise.resolve(null));
+      mShowWarning = sandboxStub.stub(window, 'showWarningMessage').returns(Promise.resolve(null));
     });
 
     afterEach(() => {
@@ -91,10 +81,7 @@ describe('SFDX CLI Configuration utility', () => {
 
     beforeEach(() => {
       sandboxStub = createSandbox();
-      isTelemetryDisabledStub = sandboxStub.stub(
-        ConfigUtil,
-        'isTelemetryDisabled'
-      );
+      isTelemetryDisabledStub = sandboxStub.stub(ConfigUtil, 'isTelemetryDisabled');
     });
 
     afterEach(() => {
@@ -123,15 +110,9 @@ describe('SFDX CLI Configuration utility', () => {
     });
 
     it('Should set an environment variable', async () => {
-      const cliEnvSpy = sandboxStub.stub(
-        GlobalCliEnvironment.environmentVariables,
-        'set'
-      );
+      const cliEnvSpy = sandboxStub.stub(GlobalCliEnvironment.environmentVariables, 'set');
       disableCLITelemetry();
-      expect(cliEnvSpy.firstCall.args).to.eql([
-        ENV_SF_DISABLE_TELEMETRY,
-        'true'
-      ]);
+      expect(cliEnvSpy.firstCall.args).to.eql([ENV_SF_DISABLE_TELEMETRY, 'true']);
     });
   });
 
@@ -139,21 +120,19 @@ describe('SFDX CLI Configuration utility', () => {
     const dummyLocalTargetOrg = 'test@local.com';
     const origCwd = process.cwd();
 
-    before(() => {
+    beforeEach(() => {
       // Ensure we are in the project directory
       const rootWorkpace = workspaceUtils.getRootWorkspacePath();
       process.chdir(rootWorkpace);
     });
-    after(() => {
+    afterEach(() => {
       process.chdir(origCwd);
     });
 
     afterEach(async () => {
       // Remove the config files that were created for the test
       try {
-        const configFile = await ConfigFile.create(
-          Config.getDefaultOptions(false, 'sfdx-config.json')
-        );
+        const configFile = await ConfigFile.create(Config.getDefaultOptions(false, 'sfdx-config.json'));
         configFile.unlinkSync(); // delete the sfdx config file that was created for the test
 
         const config = await Config.create(Config.getDefaultOptions());
@@ -174,7 +153,7 @@ describe('SFDX CLI Configuration utility', () => {
      * workspaceContextUtil defines a listener that fires a VS Code event when
      * the config file changes.  Ideally, something like flushAllPromises()
      * would be used to force the promises to resolve - however, there seems
-     * to be no mechanism to get the VS Code Events to fire before the assertions
+     * to be no mechanism to get the VS Code Events to fire beforeEach the assertions
      * in the test.  To work around this, a new listener for the event is
      * configured in this test, and the assertions are made within that event listener.
      * By asserting localProjectTargetOrgOrAlias, this test validates that:
@@ -185,9 +164,7 @@ describe('SFDX CLI Configuration utility', () => {
      * 4. The VS Code orgChange event was fired with the correct values
      * 5. The call to ConfigUtil.getTargetOrgOrAlias() returns the expected local value
      */
-    it('Should return the locally configured target org when it exists', async function () {
-      this.timeout(60000);
-
+    it('Should return the locally configured target org when it exists', async () => {
       let res: (value: string) => void;
       let rej: (reason?: any) => void;
       const resultPromise = new Promise((resolveFunc, rejectsFunc) => {
@@ -197,8 +174,7 @@ describe('SFDX CLI Configuration utility', () => {
       WorkspaceContext.getInstance().onOrgChange(async orgUserInfo => {
         try {
           // Act
-          const localProjectTargetOrgOrAlias =
-            await ConfigUtil.getTargetOrgOrAlias();
+          const localProjectTargetOrgOrAlias = await ConfigUtil.getTargetOrgOrAlias();
 
           // Assert
           expect(localProjectTargetOrgOrAlias).to.equal(dummyLocalTargetOrg);

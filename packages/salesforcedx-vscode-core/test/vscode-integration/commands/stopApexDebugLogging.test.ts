@@ -7,10 +7,7 @@
 
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import {
-  developerLogTraceFlag,
-  StopApexDebugLoggingExecutor
-} from '../../../src/commands';
+import { developerLogTraceFlag, StopApexDebugLoggingExecutor } from '../../../src/commands';
 import { nls } from '../../../src/messages';
 
 // tslint:disable:no-unused-expression
@@ -18,13 +15,11 @@ describe('Source Status', () => {
   let getDebugLevelIdStub: sinon.SinonStub;
   const fakeTraceFlagId = 'fakeDebugLevelId';
 
-  before(() => {
-    getDebugLevelIdStub = sinon
-      .stub(developerLogTraceFlag, 'getTraceFlagId')
-      .returns(fakeTraceFlagId);
+  beforeEach(() => {
+    getDebugLevelIdStub = sinon.stub(developerLogTraceFlag, 'getTraceFlagId').returns(fakeTraceFlagId);
   });
 
-  after(() => {
+  afterEach(() => {
     getDebugLevelIdStub.restore();
   });
 
@@ -34,8 +29,6 @@ describe('Source Status', () => {
     expect(forceStopLoggingCmd.toCommand()).to.equal(
       `sf data:delete:record --sobject TraceFlag --record-id ${fakeTraceFlagId} --use-tooling-api`
     );
-    expect(forceStopLoggingCmd.description).to.equal(
-      nls.localize('stop_apex_debug_logging')
-    );
+    expect(forceStopLoggingCmd.description).to.equal(nls.localize('stop_apex_debug_logging'));
   });
 });

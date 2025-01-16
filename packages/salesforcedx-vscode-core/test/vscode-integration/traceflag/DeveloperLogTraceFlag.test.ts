@@ -11,7 +11,7 @@ import { developerLogTraceFlag } from '../../../src/commands';
 // tslint:disable:no-unused-expression
 describe('Start Apex Debug Logging', () => {
   describe('Invalid start and end date', () => {
-    before(() => {
+    beforeEach(() => {
       developerLogTraceFlag.setTraceFlagDebugLevelInfo(
         'fakeTraceFlagId',
         new Date().toUTCString(),
@@ -28,12 +28,8 @@ describe('Start Apex Debug Logging', () => {
       expect(developerLogTraceFlag.isValidDateLength()).to.be.false;
       developerLogTraceFlag.validateDates();
       expect(
-        developerLogTraceFlag.getExpirationDate().getTime() -
-          developerLogTraceFlag.getStartDate().getTime()
-      ).to.equal(
-        developerLogTraceFlag.LOG_TIMER_LENGTH_MINUTES *
-          developerLogTraceFlag.MILLISECONDS_PER_SECOND
-      );
+        developerLogTraceFlag.getExpirationDate().getTime() - developerLogTraceFlag.getStartDate().getTime()
+      ).to.equal(developerLogTraceFlag.LOG_TIMER_LENGTH_MINUTES * developerLogTraceFlag.MILLISECONDS_PER_SECOND);
     });
   });
 

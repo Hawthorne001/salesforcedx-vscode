@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { Org } from '@salesforce/core';
+import { Org } from '@salesforce/core-bundle';
 import * as vscode from 'vscode';
 import { OrgAuthInfo, workspaceUtils } from '../util';
 import { WorkspaceContext } from './workspaceContext';
@@ -50,11 +50,7 @@ export const setupWorkspaceOrgType = async (targetOrgOrAlias?: string) => {
 };
 
 const setTargetOrgHasChangeTracking = (val: boolean): void => {
-  void vscode.commands.executeCommand(
-    'setContext',
-    'sf:target_org_has_change_tracking',
-    val
-  );
+  void vscode.commands.executeCommand('setContext', 'sf:target_org_has_change_tracking', val);
 };
 
 const setHasTargetOrg = (val: boolean): void => {

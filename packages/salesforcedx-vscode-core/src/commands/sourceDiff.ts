@@ -7,11 +7,7 @@
 
 import * as vscode from 'vscode';
 import { channelService } from '../channels';
-import {
-  MetadataCacheExecutor,
-  MetadataCacheResult,
-  PathType
-} from '../conflict';
+import { MetadataCacheExecutor, MetadataCacheResult, PathType } from '../conflict';
 import * as differ from '../conflict/directoryDiffer';
 import { WorkspaceContext } from '../context';
 import { nls } from '../messages';
@@ -38,9 +34,7 @@ export const sourceDiff = async (sourceUri?: vscode.Uri) => {
 
   const targetOrgorAlias = WorkspaceContext.getInstance().username;
   if (!targetOrgorAlias) {
-    await notificationService.showErrorMessage(
-      nls.localize('missing_default_org')
-    );
+    await notificationService.showErrorMessage(nls.localize('missing_default_org'));
     return;
   }
   const executor = new MetadataCacheExecutor(
@@ -49,11 +43,7 @@ export const sourceDiff = async (sourceUri?: vscode.Uri) => {
     'source_diff',
     handleCacheResults
   );
-  const commandlet = new SfCommandlet(
-    workspaceChecker,
-    new FilePathGatherer(sourceUri),
-    executor
-  );
+  const commandlet = new SfCommandlet(workspaceChecker, new FilePathGatherer(sourceUri), executor);
   await commandlet.run();
 };
 
@@ -74,9 +64,7 @@ export const sourceFolderDiff = async (explorerPath: vscode.Uri) => {
 
   const username = WorkspaceContext.getInstance().username;
   if (!username) {
-    await notificationService.showErrorMessage(
-      nls.localize('missing_default_org')
-    );
+    await notificationService.showErrorMessage(nls.localize('missing_default_org'));
     return;
   }
 
@@ -85,7 +73,7 @@ export const sourceFolderDiff = async (explorerPath: vscode.Uri) => {
     new FilePathGatherer(explorerPath),
     new MetadataCacheExecutor(
       username,
-      'Source Diff',
+      nls.localize('source_diff_folder_text'),
       'source-diff-loader',
       handleCacheResults
     )
@@ -93,23 +81,16 @@ export const sourceFolderDiff = async (explorerPath: vscode.Uri) => {
   await commandlet.run();
 };
 
-export const handleCacheResults = async (
-  username: string,
-  cache?: MetadataCacheResult
-): Promise<void> => {
+export const handleCacheResults = async (username: string, cache?: MetadataCacheResult): Promise<void> => {
   if (cache) {
     if (cache.selectedType === PathType.Individual && cache.cache.components) {
-      await differ.diffOneFile(
-        cache.selectedPath,
-        cache.cache.components[0],
-        username
-      );
+      await differ.diffOneFile(cache.selectedPath, cache.cache.components[0], username);
     } else if (cache.selectedType === PathType.Folder) {
-      await differ.diffFolder(cache, username);
+      differ.diffFolder(cache, username);
     }
   } else {
     const message = nls.localize('source_diff_components_not_in_org');
-    await notificationService.showErrorMessage(message);
+    void notificationService.showErrorMessage(message);
     throw new Error(message);
   }
 };

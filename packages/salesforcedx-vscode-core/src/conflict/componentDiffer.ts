@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { SourceComponent } from '@salesforce/source-deploy-retrieve';
+import { SourceComponent } from '@salesforce/source-deploy-retrieve-bundle';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -22,10 +22,7 @@ export type ComponentDiff = {
  * @param cacheRoot The common root of all files in the cacheComponent
  * @returns An array of file paths, where each element corresponds to one file that differs
  */
-export const diffComponents = (
-  projectComponent: SourceComponent,
-  cacheComponent: SourceComponent
-): ComponentDiff[] => {
+export const diffComponents = (projectComponent: SourceComponent, cacheComponent: SourceComponent): ComponentDiff[] => {
   const diffs: ComponentDiff[] = [];
 
   const projectIndex = new Map<string, string>();

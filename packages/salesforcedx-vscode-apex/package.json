@@ -14,20 +14,21 @@
     "color": "#ECECEC",
     "theme": "light"
   },
-  "version": "60.16.0",
+  "version": "62.14.1",
   "publisher": "salesforce",
   "license": "BSD-3-Clause",
   "engines": {
-    "vscode": "^1.82.0"
+    "vscode": "^1.90.0"
   },
   "categories": [
     "Programming Languages"
   ],
   "dependencies": {
-    "@salesforce/apex-node": "6.0.0",
+    "@salesforce/apex-node-bundle": "8.1.12",
     "@salesforce/apex-tmlanguage": "1.8.0",
-    "@salesforce/core": "7.3.1",
-    "@salesforce/salesforcedx-utils-vscode": "60.16.0",
+    "@salesforce/core-bundle": "8.6.1",
+    "@salesforce/salesforcedx-utils-vscode": "62.14.1",
+    "@salesforce/vscode-service-provider": "1.2.1",
     "expand-home-dir": "0.0.3",
     "find-java-home": "0.2.0",
     "shelljs": "0.8.5",
@@ -35,32 +36,22 @@
     "vscode-languageclient": "8.1.0"
   },
   "devDependencies": {
-    "@salesforce/salesforcedx-test-utils-vscode": "60.16.0",
+    "@salesforce/salesforcedx-test-utils-vscode": "62.14.1",
     "@salesforce/ts-sinon": "1.4.0",
     "@types/chai": "4.3.3",
     "@types/mocha": "^5",
-    "@types/node": "^18.11.9",
+    "@types/node": "^20.0.0",
     "@types/shelljs": "^0.7.8",
     "@types/sinon": "^2.3.7",
-    "@types/vscode": "^1.61.2",
-    "@typescript-eslint/eslint-plugin": "6.9.0",
-    "@typescript-eslint/parser": "6.9.0",
+    "@types/vscode": "^1.90.0",
     "chai": "^4.0.2",
     "cross-env": "5.2.0",
     "esbuild": "^0.19.5",
     "esbuild-plugin-pino": "^2.1.0",
-    "eslint": "8.52.0",
-    "eslint-config-prettier": "9.0.0",
-    "eslint-plugin-header": "3.1.1",
-    "eslint-plugin-import": "2.29.0",
-    "eslint-plugin-jest": "27.5.0",
-    "eslint-plugin-jest-formatting": "3.1.0",
-    "eslint-plugin-jsdoc": "46.8.2",
-    "eslint-plugin-prefer-arrow": "1.2.3",
     "mocha": "^10",
-    "prettier": "3.0.3",
+    "prettier": "3.3.3",
     "sinon": "^13.0.1",
-    "typescript": "^5.2.2",
+    "typescript": "^5.6.2",
     "vscode-extension-telemetry": "0.0.17"
   },
   "extensionDependencies": [
@@ -103,11 +94,9 @@
       "main": "dist/index.js",
       "languageServerDir": "dist",
       "dependencies": {
-        "@salesforce/apex-tmlanguage": "1.4.0",
-        "@salesforce/core": "7.3.1",
-        "@salesforce/source-tracking": "6.0.4",
         "applicationinsights": "1.0.7",
-        "shelljs": "0.8.5"
+        "shelljs": "0.8.5",
+        "jsonpath": "1.1.1"
       },
       "devDependencies": {}
     }
@@ -141,12 +130,17 @@
         {
           "command": "sf.test.view.run",
           "when": "view == sf.test.view",
-          "group": "navigation"
+          "group": "navigation@1"
         },
         {
           "command": "sf.test.view.refresh",
           "when": "view == sf.test.view",
-          "group": "navigation"
+          "group": "navigation@2"
+        },
+        {
+          "command": "sf.test.view.collapseAll",
+          "when": "view == sf.test.view",
+          "group": "navigation@3"
         }
       ],
       "view/item/context": [
@@ -237,6 +231,10 @@
         {
           "command": "sf.test.view.refresh",
           "when": "false"
+        },
+        {
+          "command": "sf.test.view.collapseAll",
+          "when": "sf:project_opened"
         }
       ]
     },
@@ -275,6 +273,14 @@
         "icon": {
           "light": "resources/light/play-button.svg",
           "dark": "resources/dark/play-button.svg"
+        }
+      },
+      {
+        "command": "sf.test.view.collapseAll",
+        "title": "%collapse_tests_title%",
+        "icon": {
+          "light": "resources/light/collapse-all.svg",
+          "dark": "resources/dark/collapse-all.svg"
         }
       },
       {
@@ -381,6 +387,11 @@
           "type": "boolean",
           "default": false,
           "description": "%apex_code_disable-warnings-for-missing-coverage%"
+        },
+        "salesforcedx-vscode-apex.enable-apex-ls-error-to-telemetry": {
+          "type": "boolean",
+          "default": false,
+          "description": "%enable-apex-ls-error-to-telemetry%"
         }
       }
     },
