@@ -3,8 +3,8 @@
 Salesforce Metadata Types XSD - Generated from metadata documentation
 This file contains all metadata type definitions for hover documentation and IDE support.
 
-Generated on: 2025-12-31T21:17:36.067Z
-Total metadata types: 1498
+Generated on: 2026-01-05T12:11:04.140Z
+Total metadata types: 1485
 -->
 <xsd:schema
  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
@@ -3603,39 +3603,6 @@ Total metadata types: 1498
       <xsd:annotation>
        <xsd:documentation>Indicates whether Agentforce for Developers is enabled: true or false. If true, Agentforce for Developers isn&apos;t enabled in your org, which means that you&apos;ve opted out of using it. If false, Agentforce for Developers is enabled. The default value is false.</xsd:documentation>
        <xsd:appinfo>Type: boolean</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
- <xsd:complexType name="AiAuthoringBundle">
-  <xsd:annotation>
-   <xsd:documentation>Represents an AI authoring bundle, which is a container for AI-related authoring content. For example, an AI authoring bundle for an Agentforce agent contains an Agent Script file and the associated metadata content. AiAuthoringBundle packages and manages AI authoring artifacts with version control features. This metadata type provides a structured way to organize, version, and target AI-related content within your Salesforce org.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_aiauthoringbundle.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="bundleType" minOccurs="0" maxOccurs="unbounded" type="xsd:anyType">
-      <xsd:annotation>
-       <xsd:documentation>Specifies the type or category of the AI authoring bundle, indicating the kind of AI authoring content contained within the bundle. Currently, this value must be AGENT, which represents an Agent Script agent. See Agent Script in the Agentforce Developer Guide for details.</xsd:documentation>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="target" minOccurs="0" maxOccurs="unbounded" type="xsd:anyType">
-      <xsd:annotation>
-       <xsd:documentation>Specifies the context or destination for the AI authoring bundle, defining how the bundle content should be applied or deployed. To commit an agent version, Agentforce agents must specify the developerName for the Bot and BotVersion components, separated by a period: {Bot}.{BotVersion}. For example, Agentforce_Service_Agent.v2. These two components tie the AI authoring bundle to a specific agent and a specific agent version. This field is automatically populated when you publish an agent with Agentforce DX. Publishing an agent with this field present is the equivalent to committing the agent in Agentforce Builder with the Commit Version button. If you want to deploy an agent to your org in draft state, omit this field.</xsd:documentation>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="versionDescription" minOccurs="0" maxOccurs="unbounded" type="xsd:anyType">
-      <xsd:annotation>
-       <xsd:documentation>Provides a human-readable description of the bundle version, documenting what changes or features are included in this version of the AI authoring bundle.</xsd:documentation>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="versionTag" minOccurs="0" maxOccurs="unbounded" type="xsd:anyType">
-      <xsd:annotation>
-       <xsd:documentation>Defines a version identifier or tag for the AI authoring bundle. This value can be used for version tracking and management of different bundle iterations.</xsd:documentation>
       </xsd:annotation>
      </xsd:element>
      <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
@@ -11017,92 +10984,6 @@ Total metadata types: 1498
    </xsd:extension>
   </xsd:complexContent>
  </xsd:complexType>
- <xsd:complexType name="CallCenter">
-  <xsd:annotation>
-   <xsd:documentation>Represents the Call Center definition used to integrate Salesforce with a third-party computer-telephony integration (CTI) system, a partner telephony system, or partner Contact Center as a Service (CCaaS) system.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_callcenter.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="adapterUrl" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Optional field. A URL that points to an adapter.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="contactCenterChannels" minOccurs="0" maxOccurs="unbounded" type="ContactCenterChannel">
-      <xsd:annotation>
-       <xsd:documentation>Relates Bring Your Own Channel for Contact Center as a Service (CCaaS) messaging channels to a CallCenter and represents the routing details for a voicemail configuration.</xsd:documentation>
-       <xsd:appinfo>Type: ContactCenterChannel[]</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="displayName" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The display name of this call center.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="displayNameLabel" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The label of the displayName field in Call Center setup page.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="internalNameLabel" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The label of the internalName field in Call Center setup page.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="sections" minOccurs="0" maxOccurs="unbounded" type="CallCenterSection">
-      <xsd:annotation>
-       <xsd:documentation>Custom setup items defined for this call center.</xsd:documentation>
-       <xsd:appinfo>Type: CallCenterSection[]</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="version" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The version of this call center.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
- <xsd:complexType name="CallCenterItem">
-  <xsd:annotation>
-   <xsd:documentation>Required.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_callcenter.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="label" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The label of the custom setup item.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="name" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The name of the custom setup item.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="value" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The value of the custom setup item.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
  <xsd:complexType name="CallCenterRoutingMap">
   <xsd:annotation>
    <xsd:documentation>Represents the mapping between a user or queue in a Salesforce org to a user or queue in an external system’s call center.</xsd:documentation>
@@ -11144,37 +11025,6 @@ Total metadata types: 1498
      <xsd:element name="referenceRecord" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
       <xsd:annotation>
        <xsd:documentation>Required. Lookup field to a Salesforce user or queue.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
- <xsd:complexType name="CallCenterSection">
-  <xsd:annotation>
-   <xsd:documentation>Required.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_callcenter.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="items" minOccurs="0" maxOccurs="unbounded" type="CallCenterItem">
-      <xsd:annotation>
-       <xsd:documentation>Contains the label, name, and value that describe the sections.</xsd:documentation>
-       <xsd:appinfo>Type: CallCenterItem[]</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="label" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The label of the section.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="name" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The name of the section.</xsd:documentation>
        <xsd:appinfo>Type: string</xsd:appinfo>
       </xsd:annotation>
      </xsd:element>
@@ -14630,43 +14480,6 @@ Total metadata types: 1498
       <xsd:annotation>
        <xsd:documentation>Required for components with a location of left or right. The width of the custom console component. The value must be specified in pixels and be greater than 0 but less than 999.</xsd:documentation>
        <xsd:appinfo>Type: int</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
- <xsd:complexType name="ContactCenterChannel">
-  <xsd:annotation>
-   <xsd:documentation>Represents a junction subtype that relates a Bring Your Own Channel for Contact Center as a Service (CCaaS) messaging channel to a CallCenter type for Bring Your Own Channel for CCaaS. This subtype also represents the routing details for a voicemail configuration. This subtype is available in API version 56.0 and later.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_callcenter.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="channel" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. For Bring Your Own Channel for CCaaS, this field represents the unique ID of the Bring Your Own Channel messaging channel (MessagingChannel) that’s associated with the contact center (CallCenterId). Available in API version 60.0 and later.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="contactCenter" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. For Bring Your Own Channel for CCaaS, this field represents the unique ID of the contact center (CallCenterId) that’s associated with the Bring Your Own Channel messaging channel (MessagingChannel). Available in API version 60.0 and later.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="voiceMailFallbackQueue" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>If voicemail routing is configured for the contact center, this field represents the unique ID of the fallback queue to use if voicemail routing fails. Don&apos;t change the value in this field. Instead, configure voicemail routing in Lightning Experience.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="voiceMailHandler" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>If voicemail routing is configured for the contact center, this field represents the unique ID of the flow used to route voicemails. Don&apos;t change the value in this field. Instead, configure voicemail routing in Lightning Experience.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
       </xsd:annotation>
      </xsd:element>
      <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
@@ -22391,285 +22204,6 @@ Total metadata types: 1498
    </xsd:extension>
   </xsd:complexContent>
  </xsd:complexType>
- <xsd:complexType name="DataSrcDataModelFieldMap">
-  <xsd:annotation>
-   <xsd:documentation>Represents the entity that is used for storing the design time bundle level mappings for the data source fields and data model fields.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_datasrcdatamodelfieldmap.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="masterLabel" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. Indicates the name of the entity.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="sourceField" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. Indicates the developer name of data source fields.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="targetField" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. Indicates the developer name of data mapping object fields.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="versionNumber" minOccurs="0" maxOccurs="unbounded" type="xsd:double">
-      <xsd:annotation>
-       <xsd:documentation>Required. Indicates the version number of the entity.</xsd:documentation>
-       <xsd:appinfo>Type: double</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
- <xsd:complexType name="DataStreamDefinition">
-  <xsd:annotation>
-   <xsd:documentation>Contains data ingestion information such as connection, API, and file retrieval settings.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_datastreamdefinition.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="areHeadersIncludedInFile" minOccurs="0" maxOccurs="unbounded" type="xsd:boolean">
-      <xsd:annotation>
-       <xsd:documentation>If true, headers are included in the file if this is a single file stream.</xsd:documentation>
-       <xsd:appinfo>Type: boolean</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="bulkIngest" minOccurs="0" maxOccurs="unbounded" type="xsd:boolean">
-      <xsd:annotation>
-       <xsd:documentation>If true, files are aggregated before data is ingested if the file names contain a wildcard. For example, profiles*.csv.</xsd:documentation>
-       <xsd:appinfo>Type: boolean</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="definitionCreationType" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. Enum tracks the source of an object or field creation. Valid values are: Custom Standard Valid values available in API version 62.0 and later are: ADG Calculated_Insight CG_Audience Chunk Directory_Table External Semantic Transform Vector_Embedding</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataConnector" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. Describe whether this data stream definition was created by a customer or by an internal system.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataConnectorType" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The ingestion data source. Valid values are: ACCOUNTENGAGEMENT AwsS3 AzureBlob BIG_QUERY CuratedEntity DataCloud ExternalPlatform GoogleCloudStorage IngestApi REDSHIFT SalesforceCommerceCloud SalesforceDotCom SalesforceInteractionStudio SalesforceMarketingCloud SFTP Snowflake StreamingApp UPLOAD</xsd:documentation>
-       <xsd:appinfo>Type: DataConnectorType (enumeration of type string)</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataExtensionIdentifier" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>For a Marketing Cloud data extension, the unique identifier.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataExtractField" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Name of the transport field that’s used when the extract method is CDC.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataExtractMethods" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Describes how to identify the data to be extracted. Valid values include: DATETIME_CDC FULL_REFRESH NUMERIC_CDC BINARY_CDC (reserved for future use)</xsd:documentation>
-       <xsd:appinfo>Type: DataImportDataExtractMethods (enumeration of type string)</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataPlatDataSetBundle" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Identifies which data set bundle this definition was created from. Useful in cases where the same item can be configured across data connections.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataPlatformDataSet" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The description is provided by the developer.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataPlatformDataSetItemName" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Name of the Data Platform Set Item.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataSource" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. A reference to the data source from which the data originated. This is usually the API name or a unique system identifier, such as the enterprise ID (EID) of the customer in the format MC_&lt;EID&gt;. Example: MCEnterprise or MC_12345.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="description" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. A description of the data stream definition.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="fileNameWildcard" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>File or wildcard (*) used when finding files.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="internalOrganization" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The name of the internal organization.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="isLimitedToNewFiles" minOccurs="0" maxOccurs="unbounded" type="xsd:boolean">
-      <xsd:annotation>
-       <xsd:documentation>If true, file retrieval is limited to new files.</xsd:documentation>
-       <xsd:appinfo>Type: boolean</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="isMissingFileFailure" minOccurs="0" maxOccurs="unbounded" type="xsd:boolean">
-      <xsd:annotation>
-       <xsd:documentation>If true, treat the case of missing files as a failure.</xsd:documentation>
-       <xsd:appinfo>Type: boolean</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="masterLabel" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. UI label for this data stream definition.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="mktDataLakeObject" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. Reference to the landing entity (target) where data will be stored.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="mktDataTranObject" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Reference to the object that’s used to transport information from the source to a landing entity (target).</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
- <xsd:complexType name="DataStreamTemplate">
-  <xsd:annotation>
-   <xsd:documentation>Represents the data stream that a user adds to a data kit.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_datastreamtemplate.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="dataConnectionSourceParameters" minOccurs="0" maxOccurs="unbounded" type="xsd:anyType">
-      <xsd:annotation>
-       <xsd:documentation>Input representation for the data connection source parameters.</xsd:documentation>
-       <xsd:appinfo>Type: DataConnectionParamTmpl[]</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataSourceBundleDefinition" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. Reference to the bundle to which this template belongs.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataSourceObject" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. Reference to the Data Source Objects (DSOs). A DSO represents the object from where the data was sourced.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="filterCriteria" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Filter applied to the data stream before the information is sent to Data Cloud.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="masterLabel" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. Name assigned to the data stream template.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="objectCategory" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. Category of the Data Model Object (DMO).</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="refreshDayOfMonth" minOccurs="0" maxOccurs="unbounded" type="xsd:int">
-      <xsd:annotation>
-       <xsd:documentation>The duration of the day of the month after which the data stream must be refreshed.</xsd:documentation>
-       <xsd:appinfo>Type: int</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="refreshDayOfWeek" minOccurs="0" maxOccurs="unbounded" type="xsd:int">
-      <xsd:annotation>
-       <xsd:documentation>The duration of the day of the week after which the data stream must be refreshed.</xsd:documentation>
-       <xsd:appinfo>Type: int</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="refreshFrequency" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The frequency with which the datastream must be refreshed. Possible values are: Batch NONE MINUTES_15 MINUTES_30 MINUTES_5 HOURLY DAILY WEEKLY MONTHLY NOT_APPLICABLE STREAMING Possible values available in API version 64.0 and later are: EVERY_12_HOURS EVERY_4_HOURS</xsd:documentation>
-       <xsd:appinfo>Type: DataImportRefreshFrequency (enumeration of type string)</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="refreshHours" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The duration after which the datastream must be refreshed.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="refreshMode" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The mode of refresh. Possible values are: FULL_REFRESH UPSERT INCREMENTAL REPLACE NEAR_REAL_TIME_INCREMENTAL NOT_APPLICABLE PARTIAL_UPDATE STREAMING</xsd:documentation>
-       <xsd:appinfo>Type: DataImportRefreshMode (enumeration of type string)</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="refreshStartDate" minOccurs="0" maxOccurs="unbounded" type="xsd:date">
-      <xsd:annotation>
-       <xsd:documentation>The date to retrieve data based on the refresh frequency data. Available in API version 62.0 and later.</xsd:documentation>
-       <xsd:appinfo>Type: date</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="sourceObjectName" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The name of the source object from which data is streamed. Available in API version 62.0 and later.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="streamType" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The type of data stream. Available in API version 62.0 and later. Possible values are: DIRECT_ACCESS DIRECT_ACCESS_ACCELERATED INGEST</xsd:documentation>
-       <xsd:appinfo>Type: StreamType (enumeration of type string)</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="streamingAppDataConnectorType" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The connector app for data streaming. Available in API version 63.0 and later. Possible values are: MobileApp WebApp</xsd:documentation>
-       <xsd:appinfo>Type: streamingAppDataConnectorType (enumeration of type string)</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="templateVersion" minOccurs="0" maxOccurs="unbounded" type="xsd:int">
-      <xsd:annotation>
-       <xsd:documentation>The version number of the template. Available in API version 62.0 and later.</xsd:documentation>
-       <xsd:appinfo>Type: int</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
  <xsd:complexType name="DataWeaveResource">
   <xsd:annotation>
    <xsd:documentation>Represents the DataWeaveScriptResource class that is generated for all DataWeave scripts. DataWeave scripts can be directly invoked from Apex.</xsd:documentation>
@@ -23581,43 +23115,6 @@ Total metadata types: 1498
       <xsd:annotation>
        <xsd:documentation>The list of target workspaces that the source workspace is shared with.</xsd:documentation>
        <xsd:appinfo>Type: SharedWith[]</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
- <xsd:complexType name="DisclosureDefinition">
-  <xsd:annotation>
-   <xsd:documentation>Represents information that defines a disclosure type, such as details of the publisher or vendor who created or implemented the report.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_disclosuredefinition.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="description" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The description about the disclosure definition.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="disclosureType" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The API name of the disclosure type associated with this definition.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="isProtected" minOccurs="0" maxOccurs="unbounded" type="xsd:boolean">
-      <xsd:annotation>
-       <xsd:documentation>An auto-generated value that doesn’t impact the behavior of the metadata type. The default is false.</xsd:documentation>
-       <xsd:appinfo>Type: boolean</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="masterLabel" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. A user-friendly name for DisclosureDefinition, which is defined when the DisclosureDefinition is created.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
       </xsd:annotation>
      </xsd:element>
      <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
@@ -28410,55 +27907,6 @@ Total metadata types: 1498
    </xsd:extension>
   </xsd:complexContent>
  </xsd:complexType>
- <xsd:complexType name="EntitlementTemplate">
-  <xsd:annotation>
-   <xsd:documentation>Represents an entitlement template. Entitlement templates are predefined terms of customer support that you can quickly add to products. For example, you can create entitlement templates for Web or phone support so that users can easily add entitlements to products offered to customers. EntitlementTemplate extends the Metadata metadata type and inherits its fullName field.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_entitlementtemplate.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="businessHours" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The entitlement&apos;s supported business hours.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="casesPerEntitlement" minOccurs="0" maxOccurs="unbounded" type="xsd:int">
-      <xsd:annotation>
-       <xsd:documentation>The total number of cases the entitlement supports.</xsd:documentation>
-       <xsd:appinfo>Type: int</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="entitlementProcess" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The entitlement process associated with the entitlement. Entitlement processes are timelines that include all the steps (milestones) that your support team must complete to resolve cases. Each process includes logic to determine how to enforce the correct service level for your customers.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="isPerIncident" minOccurs="0" maxOccurs="unbounded" type="xsd:boolean">
-      <xsd:annotation>
-       <xsd:documentation>true if entitlements created from this template service a limited number of cases; false otherwise.</xsd:documentation>
-       <xsd:appinfo>Type: boolean</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="term" minOccurs="0" maxOccurs="unbounded" type="xsd:int">
-      <xsd:annotation>
-       <xsd:documentation>The number of days the entitlement is in effect.</xsd:documentation>
-       <xsd:appinfo>Type: int</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="type" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The type of entitlement, such as Web or phone support.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
  <xsd:complexType name="EscalationAction">
   <xsd:annotation>
    <xsd:documentation>Describes the action to take for an escalation rule.</xsd:documentation>
@@ -28632,55 +28080,6 @@ Total metadata types: 1498
    </xsd:extension>
   </xsd:complexContent>
  </xsd:complexType>
- <xsd:complexType name="EventRelayConfig">
-  <xsd:annotation>
-   <xsd:documentation>Represents the configuration of an event relay, which relays platform events and change data capture events from Salesforce to Amazon EventBridge.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_eventrelayconfig.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="destinationResourceName" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The developer name of the named credential, which stores the AWS account information. The destinationResourceName value contains the callout: prefix. For example: callout:MyRelayNamedCredential</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="eventChannel" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The full name of the event channel used in the event relay. For example: MyRelayChannel__chn</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="label" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The label for the event relay. The label is displayed in the user interface. Make sure you use a meaningful label that describes your event relay and try to make it unique.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="relayOption" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>A JSON-encoded string that contains an option for resuming an event relay after the system recovers from an error. This option is used if the event relay can&apos;t resume after the last relayed event. The options available are: {\&quot;ReplayRecovery\&quot;:\&quot;LATEST\&quot;}—(Default) Start relaying events from new events received in the event bus. Use this option if you aren’t interested in missed events while the relay was down. {\&quot;ReplayRecovery\&quot;:\&quot;EARLIEST\&quot;}—Resend all events stored in the event bus and relay new events thereafter. The event bus stores events for up to three days. Use this option if you want to reprocess all stored events and catch up on missed events.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="state" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>The execution state of the event relay. Possible values are: RUN—The event relay is running and actively relaying event messages from Salesforce to Amazon EventBridge. PAUSE—An administrator paused the event relay. No events are relayed to Amazon EventBridge during this status. All current state information is saved. STOP—(Default) The event relay is stopped and no events are relayed to Amazon EventBridge. All current state information is deleted. The event relay is created with a default state of STOP if you don&apos;t specify this field. If you specify this field when creating an event relay, the only valid value you can set is STOP. DELETE—Reserved for future use.</xsd:documentation>
-       <xsd:appinfo>Type: EventRelayAdminState (enumeration of type string)</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="usageType" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Reserved for future use.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
  <xsd:complexType name="EventSettings">
   <xsd:annotation>
    <xsd:documentation>Represents an org&apos;s platform event settings for Event Monitoring.</xsd:documentation>
@@ -28759,43 +28158,6 @@ Total metadata types: 1498
       <xsd:annotation>
        <xsd:documentation>Specifies the number of days (between 30 and 365) that your event log file data is retained for. If this value is not set, your event log file data is retained for your org&apos;s default retention period.</xsd:documentation>
        <xsd:appinfo>Type: integer</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
- <xsd:complexType name="EventSubscription">
-  <xsd:annotation>
-   <xsd:documentation>Represents a subscription to an event type. Removed in API version 46.0. This type extends the Metadata metadata type and inherits its fullName field.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_eventsubscription.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="active" minOccurs="0" maxOccurs="unbounded" type="xsd:boolean">
-      <xsd:annotation>
-       <xsd:documentation>If the subscription isn’t active, it never receives any events.</xsd:documentation>
-       <xsd:appinfo>Type: boolean</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="eventParameters" minOccurs="0" maxOccurs="unbounded" type="EventParameterMap">
-      <xsd:annotation>
-       <xsd:documentation>An array of parameters that must be true for published events.</xsd:documentation>
-       <xsd:appinfo>Type: EventParameterMap[]</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="eventType" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The name of the platform event.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="referenceData" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. If the subscriber is a flow of type CustomEvent, referenceData is flowName_versionNumber. For example, Printer_Management_2.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
       </xsd:annotation>
      </xsd:element>
      <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
@@ -30305,55 +29667,6 @@ Total metadata types: 1498
       <xsd:annotation>
        <xsd:documentation>Specifies the order of principals to apply when a user participates in more than one principal. For example, a user could be part of multiple permission sets that are applicable for a credential provider. Priority is from lower to higher numbers. You can set this field only when parameterType is NamedPrincipal.</xsd:documentation>
        <xsd:appinfo>Type: int</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
-    </xsd:choice>
-   </xsd:extension>
-  </xsd:complexContent>
- </xsd:complexType>
- <xsd:complexType name="ExternalDataConnector">
-  <xsd:annotation>
-   <xsd:documentation>Used to represent the object where the data was sourced.</xsd:documentation>
-   <xsd:appinfo>Documentation: https://developer.salesforce.com/docs/atlas.en-us.api_meta.meta/api_meta/meta_externaldataconnector.htm</xsd:appinfo>
-  </xsd:annotation>
-  <xsd:complexContent>
-   <xsd:extension base="Metadata">
-    <xsd:choice maxOccurs="unbounded">
-     <xsd:element name="dataConnectionStatus" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Indicates whether you’re connected to a data source. Valid values are: Connected Disconnected Failed</xsd:documentation>
-       <xsd:appinfo>Type: DataConnectionStatus (enumeration of type string)</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataConnectorConfiguration" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Reference to the Data Connector Configuration that is used to retrieve or receive data such as DataConnectorS3.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataConnectorType" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Type of connection such as AmazonS3. Valid values are: ACCOUNTENGAGEMENT AmazonS3 CuratedEntity DataCloud ExternalPlatform GoogleCloudStorage IngestApi SalesforceCommerceCloud SalesforceDotCom SalesforceInteractionStudio SalesforceMarketingCloud SFTP StreamingApp UPLOAD</xsd:documentation>
-       <xsd:appinfo>Type: DataConnectorType (enumeration of type string)</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="dataPlatform" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Reference to the Data Platform that provides or uses this data, such as Amazon_S3.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="externalDataTranObjects" minOccurs="0" maxOccurs="unbounded" type="ExternalDataTranObject">
-      <xsd:annotation>
-       <xsd:documentation>Stores the schema objects related to the data connector. Available in API version 56.0 and later.</xsd:documentation>
-       <xsd:appinfo>Type: ExternalDataTranObject</xsd:appinfo>
-      </xsd:annotation>
-     </xsd:element>
-     <xsd:element name="masterLabel" minOccurs="0" maxOccurs="unbounded" type="xsd:string">
-      <xsd:annotation>
-       <xsd:documentation>Required. The UI name for the ExternalDataConnector.</xsd:documentation>
-       <xsd:appinfo>Type: string</xsd:appinfo>
       </xsd:annotation>
      </xsd:element>
      <xsd:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
@@ -71831,7 +71144,6 @@ Total metadata types: 1498
  <xsd:element name="AgentConfigUserAssignments" type="AgentConfigUserAssignments"/>
  <xsd:element name="AgentPlatformSettings" type="AgentPlatformSettings"/>
  <xsd:element name="AgentforceForDevelopersSettings" type="AgentforceForDevelopersSettings"/>
- <xsd:element name="AiAuthoringBundle" type="AiAuthoringBundle"/>
  <xsd:element name="AiCoachAgentScnrDefTranslation" type="AiCoachAgentScnrDefTranslation"/>
  <xsd:element name="AiPluginUtteranceDef" type="AiPluginUtteranceDef"/>
  <xsd:element name="AnalyticSnapshot" type="AnalyticSnapshot"/>
@@ -71983,10 +71295,7 @@ Total metadata types: 1498
  <xsd:element name="CMSConnectResourceDefinition" type="CMSConnectResourceDefinition"/>
  <xsd:element name="CMSConnectResourceType" type="CMSConnectResourceType"/>
  <xsd:element name="CMSConnectSource" type="CMSConnectSource"/>
- <xsd:element name="CallCenter" type="CallCenter"/>
- <xsd:element name="CallCenterItem" type="CallCenterItem"/>
  <xsd:element name="CallCenterRoutingMap" type="CallCenterRoutingMap"/>
- <xsd:element name="CallCenterSection" type="CallCenterSection"/>
  <xsd:element name="CallCoachingMediaProvider" type="CallCoachingMediaProvider"/>
  <xsd:element name="CampaignCriteriaBasedSharingRule" type="CampaignCriteriaBasedSharingRule"/>
  <xsd:element name="CampaignInfluenceModel" type="CampaignInfluenceModel"/>
@@ -72057,7 +71366,6 @@ Total metadata types: 1498
  <xsd:element name="ConnectedAppSessionPolicy" type="ConnectedAppSessionPolicy"/>
  <xsd:element name="ConnectedAppSettings" type="ConnectedAppSettings"/>
  <xsd:element name="ConsoleComponent" type="ConsoleComponent"/>
- <xsd:element name="ContactCenterChannel" type="ContactCenterChannel"/>
  <xsd:element name="ContactCriteriaBasedSharingRule" type="ContactCriteriaBasedSharingRule"/>
  <xsd:element name="ContactOwnerSharingRule" type="ContactOwnerSharingRule"/>
  <xsd:element name="ContactSharingRules" type="ContactSharingRules"/>
@@ -72197,9 +71505,6 @@ Total metadata types: 1498
  <xsd:element name="DataSourceBundleDefinition" type="DataSourceBundleDefinition"/>
  <xsd:element name="DataSourceField" type="DataSourceField"/>
  <xsd:element name="DataSourceObject" type="DataSourceObject"/>
- <xsd:element name="DataSrcDataModelFieldMap" type="DataSrcDataModelFieldMap"/>
- <xsd:element name="DataStreamDefinition" type="DataStreamDefinition"/>
- <xsd:element name="DataStreamTemplate" type="DataStreamTemplate"/>
  <xsd:element name="DataWeaveResource" type="DataWeaveResource"/>
  <xsd:element name="DecisionMatrixDefinition" type="DecisionMatrixDefinition"/>
  <xsd:element name="DecisionMatrixDefinitionVersion" type="DecisionMatrixDefinitionVersion"/>
@@ -72218,7 +71523,6 @@ Total metadata types: 1498
  <xsd:element name="DigitalExperienceBundle" type="DigitalExperienceBundle"/>
  <xsd:element name="DigitalExperienceConfig" type="DigitalExperienceConfig"/>
  <xsd:element name="DigitalExperienceFolderShare" type="DigitalExperienceFolderShare"/>
- <xsd:element name="DisclosureDefinition" type="DisclosureDefinition"/>
  <xsd:element name="DisclosureDefinitionVersion" type="DisclosureDefinitionVersion"/>
  <xsd:element name="DisclosureType" type="DisclosureType"/>
  <xsd:element name="DiscoveryAIModel" type="DiscoveryAIModel"/>
@@ -72318,15 +71622,12 @@ Total metadata types: 1498
  <xsd:element name="EntitlementProcessMilestoneItem" type="EntitlementProcessMilestoneItem"/>
  <xsd:element name="EntitlementProcessMilestoneTimeTrigger" type="EntitlementProcessMilestoneTimeTrigger"/>
  <xsd:element name="EntitlementSettings" type="EntitlementSettings"/>
- <xsd:element name="EntitlementTemplate" type="EntitlementTemplate"/>
  <xsd:element name="EscalationAction" type="EscalationAction"/>
  <xsd:element name="EscalationRule" type="EscalationRule"/>
  <xsd:element name="EscalationRules" type="EscalationRules"/>
  <xsd:element name="EventDelivery" type="EventDelivery"/>
  <xsd:element name="EventParameterMap" type="EventParameterMap"/>
- <xsd:element name="EventRelayConfig" type="EventRelayConfig"/>
  <xsd:element name="EventSettings" type="EventSettings"/>
- <xsd:element name="EventSubscription" type="EventSubscription"/>
  <xsd:element name="ExperienceBundle" type="ExperienceBundle"/>
  <xsd:element name="ExperienceBundleSettings" type="ExperienceBundleSettings"/>
  <xsd:element name="ExperiencePropertyTypeBundle_Beta" type="ExperiencePropertyTypeBundle_Beta"/>
@@ -72360,7 +71661,6 @@ Total metadata types: 1498
  <xsd:element name="ExternalClientApplication" type="ExternalClientApplication"/>
  <xsd:element name="ExternalCredential" type="ExternalCredential"/>
  <xsd:element name="ExternalCredentialParameter" type="ExternalCredentialParameter"/>
- <xsd:element name="ExternalDataConnector" type="ExternalDataConnector"/>
  <xsd:element name="ExternalDataSource" type="ExternalDataSource"/>
  <xsd:element name="ExternalDataSrcDescriptors_for_Salesforce_Connect_Adapter_for_Amazon_DynamoDB_and_for_Amazon_Athena" type="ExternalDataSrcDescriptors_for_Salesforce_Connect_Adapter_for_Amazon_DynamoDB_and_for_Amazon_Athena"/>
  <xsd:element name="ExternalDataTranField" type="ExternalDataTranField"/>
